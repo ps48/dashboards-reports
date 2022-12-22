@@ -22,7 +22,6 @@ import {
   ILegacyClusterClient,
 } from '../../../src/core/server';
 import { setIntervalAsync } from 'set-interval-async/dynamic';
-import { Semaphore, SemaphoreInterface, withTimeout } from 'async-mutex';
 import esReportsPlugin from './backend/opendistro-es-reports-plugin';
 import notificationPlugin from './backend/opendistro-notification-plugin';
 import {
@@ -51,14 +50,10 @@ export class OpendistroKibanaReportsPlugin
       OpendistroKibanaReportsPluginStart
     > {
   private readonly logger: Logger;
-  private readonly semaphore: SemaphoreInterface;
 
   constructor(initializerContext: PluginInitializerContext) {
     this.logger = initializerContext.logger.get();
 
-    const timeoutError = new Error('Server busy');
-    timeoutError.statusCode = 503;
-    this.semaphore = withTimeout(new Semaphore(1), 180000, timeoutError);
   }
 
   public setup(core: CoreSetup) {
@@ -89,7 +84,6 @@ export class OpendistroKibanaReportsPlugin
       (context, request) => {
         return {
           logger: this.logger,
-          semaphore: this.semaphore,
           notificationClient,
           esReportsClient,
         };

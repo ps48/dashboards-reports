@@ -65,11 +65,6 @@ export enum DELIVERY_TYPE {
   channel = 'Channel',
 }
 
-export enum SELECTOR {
-  dashboard = '#dashboardViewport',
-  visualization = '.visEditor__content',
-}
-
 // https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-request-from-size.html
 export const DEFAULT_MAX_SIZE = 10000;
 
@@ -78,14 +73,11 @@ export const LOCAL_HOST = 'http://localhost:9200';
 // AES specific server base path
 export const BASE_PATH = '/_plugin/kibana';
 
-export const DEFAULT_REPORT_HEADER = '<h1>Open Distro Kibana Reports</h1>';
-
 export const SECURITY_CONSTANTS = {
   AUTH_COOKIE_NAME: 'security_authentication',
   TENANT_LOCAL_STORAGE_KEY: 'opendistro::security::tenant::show_popup',
 };
 
-export const CHROMIUM_PATH = `${__dirname}/../../../.chromium/headless_shell`;
 
 /**
  * Metric constants
